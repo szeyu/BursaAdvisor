@@ -1,0 +1,20 @@
+# Python
+.venv/
+venv/
+**/__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# uv.lock is intentionally committed — ensures all teammates get identical dependency versions.
+# Run `uv sync` after every `git pull`. Never `uv add` unless adding a new dependency.
+
+# Sze Yu private folder
+ref/
+
+# AI / editor
+.claude/
+.env
+.DS_Store

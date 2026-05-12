@@ -1,0 +1,34 @@
+{
+  "sector": "Construction",
+  "primary_metric": "pe_ratio",
+  "peer_avg_fallback": 18.0,
+  "avoid_multiplier": 1.2,
+  "benchmark_peers": [
+    {
+      "name": "Sunway Construction",
+      "ticker": "5263.KL"
+    },
+    {
+      "name": "MRCB",
+      "ticker": "1651.KL"
+    },
+    {
+      "name": "Gamuda",
+      "ticker": "5398.KL"
+    },
+    {
+      "name": "WCT",
+      "ticker": "9679.KL"
+    }
+  ],
+  "extra_inputs": [
+    "order_book_rm"
+  ],
+  "macro_drivers": [
+    "OPR",
+    "Order book",
+    "Inflation (material cost)",
+    "Inflation (labour cost)"
+  ],
+  "red_flags": []
+}

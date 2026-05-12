@@ -1,0 +1,39 @@
+{
+  "sector": "REITs",
+  "primary_metric": "distribution_yield",
+  "peer_avg_fallback": 4.5,
+  "avoid_multiplier": 1.2,
+  "benchmark_peers": [
+    {
+      "name": "Sunway REIT",
+      "ticker": "5176.KL"
+    },
+    {
+      "name": "Pavilion REIT",
+      "ticker": "5212.KL"
+    },
+    {
+      "name": "YTL REIT",
+      "ticker": "5109.KL"
+    },
+    {
+      "name": "AME REIT",
+      "ticker": "5307.KL"
+    },
+    {
+      "name": "Axis REIT",
+      "ticker": "5106.KL"
+    }
+  ],
+  "extra_inputs": [
+    "distribution_yield",
+    "occupancy_rate"
+  ],
+  "macro_drivers": [
+    "Huge borrowing",
+    "OPR rate"
+  ],
+  "red_flags": [
+    "Higher OPR avoid"
+  ]
+}

@@ -1,23 +1,44 @@
 import yfinance as yf
 import pandas as pd
+
 from ..enums import Sector
-from ..constants import YFINANCE_SECTOR_MAP, GLOVE_TICKERS
+from ..constants import (
+    YFINANCE_SECTOR_MAP,
+    GLOVE_TICKERS,
+    REIT_TICKERS,
+    PROPERTY_TICKERS,
+    CONSTRUCTION_TICKERS,
+)
 
 
 def _map_sector(yf_sector: str, ticker: str) -> Sector:
-    if ticker.upper() in GLOVE_TICKERS:
+    ticker = ticker.upper()
+
+    if ticker in GLOVE_TICKERS:
         return Sector.GLOVES
+
+    if ticker in REIT_TICKERS:
+        return Sector.REITS
+
+    if ticker in PROPERTY_TICKERS:
+        return Sector.PROPERTY
+
+    if ticker in CONSTRUCTION_TICKERS:
+        return Sector.CONSTRUCTION
+
     return YFINANCE_SECTOR_MAP.get(yf_sector, Sector.UNKNOWN)
 
 
 def _compute_rsi(hist: pd.DataFrame, period: int = 14) -> float | None:
     if hist.empty or len(hist) < period + 1:
         return None
+
     delta = hist["Close"].diff()
     gain = delta.clip(lower=0).rolling(period).mean()
     loss = (-delta.clip(upper=0)).rolling(period).mean()
     rs = gain / loss.replace(0, float("nan"))
     rsi_series = 100 - (100 / (1 + rs))
+
     last = rsi_series.dropna()
     return float(last.iloc[-1]) if not last.empty else None
 
@@ -25,6 +46,7 @@ def _compute_rsi(hist: pd.DataFrame, period: int = 14) -> float | None:
 def _compute_golden_cross(hist: pd.DataFrame) -> bool:
     if len(hist) < 200:
         return False
+
     ma50 = hist["Close"].rolling(50).mean().iloc[-1]
     ma200 = hist["Close"].rolling(200).mean().iloc[-1]
     return bool(ma50 > ma200)
@@ -35,19 +57,23 @@ def _compute_consecutive_losses(ticker_obj: yf.Ticker) -> int:
         income = ticker_obj.quarterly_income_stmt
         if income is None or income.empty:
             return 0
+
         net_income_row = None
         for label in ["Net Income", "NetIncome", "Net Income Common Stockholders"]:
             if label in income.index:
                 net_income_row = income.loc[label]
                 break
+
         if net_income_row is None:
             return 0
+
         count = 0
         for val in net_income_row.values:
             if val is not None and val < 0:
                 count += 1
             else:
                 break
+
         return count
     except Exception:
         return 0
@@ -92,6 +118,7 @@ def fetch_stock_data(ticker: str) -> dict:
         "occupancy_rate": None,
         "order_book_rm": None,
     }
+
     try:
         t = yf.Ticker(ticker)
         info = t.info or {}
@@ -180,6 +207,7 @@ def fetch_stock_data(ticker: str) -> dict:
 
     except Exception as e:
         from rich.console import Console
+
         Console(stderr=True).print(f"[yellow]Warning:[/yellow] Failed to fetch data for {ticker}: {e}")
 
     return base

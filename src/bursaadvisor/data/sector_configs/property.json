@@ -1,0 +1,36 @@
+{
+  "sector": "Property",
+  "primary_metric": "pe_ratio",
+  "peer_avg_fallback": 18.0,
+  "avoid_multiplier": 1.2,
+  "benchmark_peers": [
+    {
+      "name": "Eco World",
+      "ticker": "8206.KL"
+    },
+    {
+      "name": "SP Setia",
+      "ticker": "8664.KL"
+    },
+    {
+      "name": "Sime Darby Property",
+      "ticker": "5288.KL"
+    },
+    {
+      "name": "IOI Properties",
+      "ticker": "5249.KL"
+    },
+    {
+      "name": "Mah Sing",
+      "ticker": "8583.KL"
+    }
+  ],
+  "extra_inputs": [],
+  "macro_drivers": [
+    "High OPR",
+    "Borrowing cost",
+    "Inflation (material cost)",
+    "Inflation (labour cost)"
+  ],
+  "red_flags": []
+}

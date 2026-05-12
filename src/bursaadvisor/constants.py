@@ -1,7 +1,8 @@
+"""Universal thresholds only — numbers that apply across ALL sectors and investor profiles.
+
+Sector-specific thresholds live in data/sector_configs/*.json.
 """
-Universal thresholds only — numbers that apply across ALL sectors and investor profiles.
-Sector-specific thresholds live in data/sector_configs/<sector>.json.
-"""
+
 from .enums import Sector, RiskTolerance
 
 # --- Hard stop thresholds (universal, all sectors) ---
@@ -39,3 +40,9 @@ YFINANCE_SECTOR_MAP = {
 }
 
 GLOVE_TICKERS = {"7113.KL", "5168.KL", "0072.KL", "7229.KL"}
+
+REIT_TICKERS = {"5176.KL", "5212.KL", "5109.KL", "5307.KL", "5106.KL"}
+
+PROPERTY_TICKERS = {"8206.KL", "8664.KL", "5288.KL", "5249.KL", "8583.KL"}
+
+CONSTRUCTION_TICKERS = {"5263.KL", "1651.KL", "5398.KL", "9679.KL"}

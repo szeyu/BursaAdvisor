@@ -1,0 +1,24 @@
+{
+  "sector": "Plantation",
+  "primary_metric": "pe_ratio",
+  "peer_avg_fallback": 18.0,
+  "avoid_multiplier": 1.3,
+  "benchmark_peers": [
+    {"name": "SD Guthrie",            "ticker": "5285.KL"},
+    {"name": "IOI Corp",              "ticker": "1961.KL"},
+    {"name": "KLK",                   "ticker": "2445.KL"},
+    {"name": "Genting Plantations",   "ticker": "2291.KL"},
+    {"name": "United Plantations",    "ticker": "2089.KL"}
+  ],
+  "extra_inputs": [],
+  "macro_drivers": [
+    "CPO (Crude Palm Oil) price trends (USD-denominated commodity)",
+    "USD/MYR exchange rate (affects export value)",
+    "Global demand for agricultural commodities"
+  ],
+  "red_flags": [
+    "CPO price below RM 3,500/tonne",
+    "Negative gross margin or operating margin",
+    "Yield and replanting costs pressuring profitability"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "sector": "Utilities",
+  "primary_metric": "pe_ratio",
+  "peer_avg_fallback": 14.0,
+  "avoid_multiplier": 1.2,
+  "benchmark_peers": [
+    {"name": "Tenaga Nasional", "ticker": "5347.KL"},
+    {"name": "Ranhill Utilities","ticker": "5026.KL"},
+    {"name": "YTL Power",       "ticker": "6742.KL"},
+    {"name": "Malakoff",        "ticker": "5264.KL"}
+  ],
+  "extra_inputs": [
+    {"field": "dividend_yield",          "label": "Dividend yield (%)",              "type": "float"},
+    {"field": "coal_price_high",         "label": "Coal/fuel price elevated?",       "type": "bool"},
+    {"field": "tariff_revision_positive","label": "Positive tariff revision pending?","type": "bool"}
+  ],
+  "macro_drivers": [
+    "OPR — raises financing cost on capital-intensive infrastructure debt",
+    "Coal & fuel price — generation cost; ICPT pass-through has a timing lag",
+    "Electricity tariff revision — direct impact on regulated revenue"
+  ],
+  "red_flags": [
+    "Dividend yield below 3% — income thesis broken for this sector",
+    "High coal price with no imminent tariff revision via ICPT mechanism",
+    "Rising OPR making utility yield uncompetitive vs fixed income alternatives"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "sector": "Healthcare",
+  "primary_metric": "pe_ratio",
+  "peer_avg_fallback": 32.0,
+  "avoid_multiplier": 1.25,
+  "benchmark_peers": [
+    {"name": "IHH Healthcare",  "ticker": "5225.KL"},
+    {"name": "KPJ Healthcare",  "ticker": "5878.KL"},
+    {"name": "Sunway Medical",  "ticker": "5211.KL"}
+  ],
+  "extra_inputs": [
+    {"field": "occupancy_rate", "label": "Hospital occupancy rate (%)", "type": "float"}
+  ],
+  "macro_drivers": [
+    "USD/MYR exchange rate — stronger USD boosts medical tourism revenue",
+    "OPR — affects capital expenditure financing cost for hospital expansion"
+  ],
+  "red_flags": [
+    "Hospital occupancy rate below 65% — weak patient volume undermines earnings",
+    "Regulatory price controls on medical fees limiting revenue growth",
+    "Rising capex without corresponding occupancy improvement"
+  ]
+}

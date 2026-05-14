@@ -1,0 +1,26 @@
+{
+  "sector": "Gloves",
+  "primary_metric": "pe_ratio",
+  "peer_avg_fallback": 22.0,
+  "avoid_multiplier": 1.3,
+  "benchmark_peers": [
+    {"name": "Top Glove",   "ticker": "7113.KL"},
+    {"name": "Hartalega",   "ticker": "5168.KL"},
+    {"name": "Kossan",      "ticker": "0072.KL"},
+    {"name": "Supermax",    "ticker": "7229.KL"}
+  ],
+  "extra_inputs": [
+    {"field": "usd_myr",   "label": "USD/MYR rate",              "type": "float"},
+    {"field": "supply_glut","label": "Global glove supply glut?", "type": "bool"}
+  ],
+  "macro_drivers": [
+    "USD/MYR exchange rate — glove exporters earn in USD; strong USD = higher RM revenue",
+    "Global demand/supply cycle — ASP sensitive to inventory glut vs shortage",
+    "Nitrile & raw material cost — rising input cost compresses gross margin"
+  ],
+  "red_flags": [
+    "Global supply glut suppressing average selling price (ASP)",
+    "Weak USD/MYR reducing ringgit-denominated export revenue",
+    "Sustained nitrile price spike compressing gross margin below 20%"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "sector": "Consumer",
+  "primary_metric": "pe_ratio",
+  "peer_avg_fallback": 16.0,
+  "avoid_multiplier": 1.35,
+  "benchmark_peers": [
+    {"name": "F&N Beverages",         "ticker": "0019.KL"},
+    {"name": "Berjaya Corp",          "ticker": "0154.KL"},
+    {"name": "Mah Sing Group",        "ticker": "0138.KL"},
+    {"name": "Sunway Real Estate",    "ticker": "5211.KL"},
+    {"name": "KL Kepong",             "ticker": "2445.KL"}
+  ],
+  "extra_inputs": [],
+  "macro_drivers": [
+    "Consumer sentiment and purchasing power",
+    "Inflation and wage growth trends",
+    "Retail foot traffic and e-commerce penetration"
+  ],
+  "red_flags": [
+    "Negative operating margin or declining margins YoY",
+    "Revenue decline for 2+ consecutive quarters",
+    "High debt-to-equity with declining same-store sales"
+  ]
+}

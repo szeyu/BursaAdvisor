@@ -1,0 +1,23 @@
+{
+  "sector": "Technology",
+  "primary_metric": "pe_ratio",
+  "peer_avg_fallback": 22.0,
+  "avoid_multiplier": 1.4,
+  "benchmark_peers": [
+    {"name": "Axiata Group",          "ticker": "1138.KL"},
+    {"name": "Maxis",                 "ticker": "6012.KL"},
+    {"name": "Telekom Malaysia",      "ticker": "4863.KL"},
+    {"name": "Dialog Group",          "ticker": "7277.KL"},
+    {"name": "Sunway Construction",   "ticker": "5211.KL"}
+  ],
+  "extra_inputs": ["export_revenue_pct"],
+  "macro_drivers": [
+    "USD/MYR exchange rate (export revenue denominated in USD)",
+    "OPR (financing costs for R&D and capex)"
+  ],
+  "red_flags": [
+    "Negative free cash flow for 2+ consecutive quarters",
+    "Revenue growth decline YoY",
+    "Export revenue > 50% with strong MYR appreciation"
+  ]
+}

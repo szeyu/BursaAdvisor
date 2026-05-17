@@ -88,8 +88,6 @@ The following constants define the valuation guardrails for each investor risk p
 | `MIN_RSI_ENTRY` (oversold) | < 30 | < 30 | < 30 |
 | `MAX_RSI_ENTRY` (overbought) | ≥ 70 | ≥ 70 | ≥ 70 |
 | `AGE_INCOME_SHIFT` | ≥ 45 yrs | ≥ 45 yrs | ≥ 45 yrs |
-| `FUNDAMENTAL_WEIGHT` | 75% | 70% | 55% |
-| `TECHNICAL_WEIGHT` | 25% | 30% | 45% |
 
 ---
 
@@ -165,7 +163,7 @@ BursaAdvisor covers ten sectors derived from the elicitation interview, with **G
 |---|---|
 | **Primary Metric** | P/E Ratio |
 | **BUY Threshold** | P/E below sector median; expanding beds/revenue |
-| **AVOID Threshold** | P/E > sector median + 35%; rising staff costs unsustainable |
+| **AVOID Threshold** | P/E > peer avg × 1.25 (+25%); low occupancy rate (< 65%) |
 | **Min Div Yield (Conservative)** | < 3% (growth reinvestment) |
 | **#1 Macro Driver** | Healthcare inflation & staff cost |
 | **#2 Macro Driver** | Medical tourism demand (MYR strength matters) |
@@ -180,7 +178,7 @@ BursaAdvisor covers ten sectors derived from the elicitation interview, with **G
 |---|---|
 | **Primary Metric** | P/E / EV-EBITDA |
 | **BUY Threshold** | P/E at multi-year low; ASP (avg selling price) recovering |
-| **AVOID Threshold** | P/E > sector median + 40%; oversupply & low ASP |
+| **AVOID Threshold** | P/E > peer avg × 1.3 (+30%); stronger AVOID if USD/MYR < 4.40 |
 | **Min Div Yield (Conservative)** | < 3% |
 | **#1 Macro Driver** | USD/MYR rate (most revenue USD-denominated) |
 | **#2 Macro Driver** | Global healthcare demand & ASP trend |
@@ -195,7 +193,7 @@ BursaAdvisor covers ten sectors derived from the elicitation interview, with **G
 |---|---|
 | **Primary Metric** | Dividend Yield |
 | **BUY Threshold** | Yield > 5%; stable regulated returns |
-| **AVOID Threshold** | Yield < 3.5%; fuel cost surge without tariff relief |
+| **AVOID Threshold** | P/E > peer avg × 1.2 OR dividend yield < 3.0% (either alone triggers AVOID) |
 | **Min Div Yield (Conservative)** | ≥ 5% |
 | **#1 Macro Driver** | Coal & fuel price (40–50% of generation cost) |
 | **#2 Macro Driver** | OPR (debt financing cost; sector is capital-intensive) |
@@ -258,8 +256,8 @@ The following conditions trigger an immediate **AVOID** recommendation regardles
 | PN17 listing status | `stock_is_pn17 = true` | Company is under financial distress; delisting risk is imminent |
 | Qualified audit opinion | `stock_auditor_qualified = true` | Auditor cannot confirm financials are accurate; credibility risk |
 | Two or more consecutive losses | `stock_consecutive_losses ≥ 2` | Sustained earnings deterioration signals structural problems |
-| Excessive debt level | `stock_debt_to_equity > 2.0` | High leverage raises insolvency risk, especially in rising OPR environment |
-| Liquidity stress | `stock_current_ratio < 1.0` | Short-term liabilities exceed short-term assets; cash crunch risk |
+| Excessive debt level | `stock_debt_to_equity > 2.0` | High leverage raises insolvency risk, especially in rising OPR environment. **Exempt: Banking, Healthcare, Utilities, REITs** (structurally high leverage by design; governed by sector-specific regulatory limits instead) |
+| Liquidity stress | `stock_current_ratio < 1.0` | Short-term liabilities exceed short-term assets; cash crunch risk. **Exempt: Banking, Healthcare, Utilities, REITs** (current ratio < 1.0 is structurally normal for asset-heavy and financial sectors) |
 | Below retail market cap floor | `stock_market_cap_rm < 0.5` (RM 500m) | Small-cap illiquidity and information asymmetry disadvantage retail investors |
 
 ---

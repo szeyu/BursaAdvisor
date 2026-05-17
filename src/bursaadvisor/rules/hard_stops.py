@@ -1,11 +1,12 @@
 from experta import Rule, MATCH, NOT, TEST
 from ..facts import Stock, Recommendation
-from ..enums import Verdict
+from ..enums import Verdict, Sector
 from ..constants import (
     HARD_MAX_DE_RATIO,
     HARD_MIN_CURRENT_RATIO,
     HARD_MAX_CONSEC_LOSSES,
     HARD_MIN_MARKET_CAP_B,
+    EXEMPT_FROM_DE_CR,
 )
 
 
@@ -40,22 +41,22 @@ class HardStopRules:
                                     reason=f"{losses} consecutive quarterly losses — deteriorating earnings"))
 
     @Rule(
-        Stock(ticker=MATCH.ticker, debt_to_equity=MATCH.de),
-        TEST(lambda de: de is not None and de > HARD_MAX_DE_RATIO),
+        Stock(ticker=MATCH.ticker, debt_to_equity=MATCH.de, sector=MATCH.sector),
+        TEST(lambda de, sector: de is not None and de > HARD_MAX_DE_RATIO and sector not in EXEMPT_FROM_DE_CR),
         NOT(Recommendation(ticker=MATCH.ticker)),
         salience=100,
     )
-    def avoid_high_debt(self, ticker, de):
+    def avoid_high_debt(self, ticker, de, sector):
         self.declare(Recommendation(ticker=ticker, verdict=Verdict.AVOID,
                                     reason=f"D/E ratio {de:.2f}x exceeds {HARD_MAX_DE_RATIO}x — insolvency risk"))
 
     @Rule(
-        Stock(ticker=MATCH.ticker, current_ratio=MATCH.cr),
-        TEST(lambda cr: cr is not None and cr < HARD_MIN_CURRENT_RATIO),
+        Stock(ticker=MATCH.ticker, current_ratio=MATCH.cr, sector=MATCH.sector),
+        TEST(lambda cr, sector: cr is not None and cr < HARD_MIN_CURRENT_RATIO and sector not in EXEMPT_FROM_DE_CR),
         NOT(Recommendation(ticker=MATCH.ticker)),
         salience=100,
     )
-    def avoid_liquidity_risk(self, ticker, cr):
+    def avoid_liquidity_risk(self, ticker, cr, sector):
         self.declare(Recommendation(ticker=ticker, verdict=Verdict.AVOID,
                                     reason=f"Current ratio {cr:.2f}x below {HARD_MIN_CURRENT_RATIO}x — liquidity crisis"))
 

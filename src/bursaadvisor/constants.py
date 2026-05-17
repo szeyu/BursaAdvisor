@@ -5,6 +5,10 @@ Sector-specific thresholds live in data/sector_configs/*.json.
 
 from .enums import Sector, RiskTolerance
 
+# Sectors exempt from D/E (R04) and current ratio (R05) hard stops.
+# These carry structurally high leverage or low current ratios by design.
+EXEMPT_FROM_DE_CR = {Sector.BANKING, Sector.HEALTHCARE, Sector.UTILITIES, Sector.REITS}
+
 # --- Hard stop thresholds (universal, all sectors) ---
 HARD_MAX_DE_RATIO = 2.0
 HARD_MIN_CURRENT_RATIO = 1.0

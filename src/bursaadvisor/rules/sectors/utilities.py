@@ -167,6 +167,51 @@ class UtilitiesRules:
     @Rule(
         FundamentalPass(ticker=MATCH.ticker),
         Stock(ticker=MATCH.ticker, sector=Sector.UTILITIES,
+              pe_ratio=MATCH.pe, dividend_yield=MATCH.dy),
+        PeerBenchmark(sector=Sector.UTILITIES, metric="pe_ratio",
+                      value=MATCH.peer_avg, avoid_multiplier=MATCH.mult),
+        TEST(lambda dy: dy is not None and dy < _BROKEN_YIELD),
+        NOT(Recommendation(ticker=MATCH.ticker)),
+        salience=18,
+    )
+    def utilities_avoid_low_yield(self, ticker, pe, peer_avg, mult, dy):
+        # OR logic: yield < 3.0% alone triggers AVOID regardless of P/E level.
+        self.declare(Recommendation(
+            ticker=ticker,
+            verdict=Verdict.AVOID,
+            reason=(
+                f"Utilities: dividend yield {dy:.1f}% below {_BROKEN_YIELD:.1f}% income floor "
+                f"— income thesis broken; yield alone triggers AVOID per sector rules "
+                f"(P/E {pe:.1f}x vs peer avg {peer_avg:.1f}x)"
+            ),
+        ))
+
+    @Rule(
+        FundamentalPass(ticker=MATCH.ticker),
+        Stock(ticker=MATCH.ticker, sector=Sector.UTILITIES,
+              pe_ratio=MATCH.pe, dividend_yield=MATCH.dy),
+        PeerBenchmark(sector=Sector.UTILITIES, metric="pe_ratio",
+                      value=MATCH.peer_avg, avoid_multiplier=MATCH.mult),
+        TEST(lambda pe, peer_avg: pe is not None and pe < peer_avg),
+        TEST(lambda dy: dy is not None and _BROKEN_YIELD <= dy < _MIN_YIELD),
+        NOT(Recommendation(ticker=MATCH.ticker)),
+        salience=19,
+    )
+    def utilities_watch_undervalued_mid_yield(self, ticker, pe, peer_avg, mult, dy):
+        # Undervalued P/E but yield below BUY threshold (3.0–4.0%) → WATCH not BUY.
+        self.declare(Recommendation(
+            ticker=ticker,
+            verdict=Verdict.WATCH,
+            reason=(
+                f"Utilities: P/E {pe:.1f}x below peer avg {peer_avg:.1f}x (cheap) "
+                f"but dividend yield {dy:.1f}% below {_MIN_YIELD:.1f}% BUY threshold "
+                f"— monitor yield recovery before entering"
+            ),
+        ))
+
+    @Rule(
+        FundamentalPass(ticker=MATCH.ticker),
+        Stock(ticker=MATCH.ticker, sector=Sector.UTILITIES,
               pe_ratio=None, dividend_yield=MATCH.dy),
         PeerBenchmark(sector=Sector.UTILITIES, metric="pe_ratio"),
         NOT(Recommendation(ticker=MATCH.ticker)),

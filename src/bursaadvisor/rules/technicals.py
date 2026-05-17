@@ -1,5 +1,5 @@
 from experta import Rule, MATCH, NOT, AS, TEST
-from ..facts import Stock, Recommendation
+from ..facts import Stock, Recommendation, FundamentalPass
 from ..enums import Verdict
 from ..constants import RSI_OVERBOUGHT, RSI_OVERSOLD
 
@@ -17,6 +17,7 @@ class TechnicalRules:
 
     @Rule(
         AS.rec << Recommendation(ticker=MATCH.ticker, verdict=Verdict.WATCH),
+        FundamentalPass(ticker=MATCH.ticker),
         Stock(ticker=MATCH.ticker, rsi=MATCH.rsi, golden_cross=True),
         TEST(lambda rsi: rsi is not None and rsi <= RSI_OVERSOLD),
         salience=10,

@@ -27,7 +27,7 @@ class ConsumerRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.BUY,
-            reason=f"Consumer: P/E {pe:.1f}x below sector avg {peer_avg:.1f}x — attractive entry for resilient retailing",
+            reason=f"Consumer: P/E {pe:.1f}x below sector avg {peer_avg:.1f}x (99 Speedmart, Mr DIY, Nestle, F&N, Padini) — attractive entry for resilient retailing",
         ))
 
     @Rule(
@@ -43,7 +43,7 @@ class ConsumerRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.WATCH,
-            reason=f"Consumer: P/E {pe:.1f}x within peer range ({peer_avg:.1f}x–{peer_avg * mult:.1f}x) — monitor same-store sales & operating margins",
+            reason=f"Consumer: P/E {pe:.1f}x within peer range ({peer_avg:.1f}x–{peer_avg * mult:.1f}x; 99 Speedmart, Mr DIY, Nestle, F&N, Padini) — monitor same-store sales & operating margins",
         ))
 
     @Rule(
@@ -59,7 +59,7 @@ class ConsumerRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.AVOID,
-            reason=f"Consumer: P/E {pe:.1f}x exceeds sector avg +{round((mult-1)*100):.0f}% ({peer_avg * mult:.1f}x) — premium valuation with margin pressure risk",
+            reason=f"Consumer: P/E {pe:.1f}x exceeds sector avg +{round((mult-1)*100):.0f}% (threshold: {peer_avg * mult:.1f}x vs 99 Speedmart, Mr DIY, Nestle, F&N, Padini) — premium valuation with margin pressure risk",
         ))
 
     @Rule(

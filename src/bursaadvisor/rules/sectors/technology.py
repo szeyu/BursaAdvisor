@@ -28,7 +28,7 @@ class TechnologyRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.BUY,
-            reason=f"Technology: P/E {pe:.1f}x below sector avg {peer_avg:.1f}x — growth potential at valuation discount",
+            reason=f"Technology: P/E {pe:.1f}x below sector avg {peer_avg:.1f}x (Inari Amertron, ViTrox, Frontken, MPI, Greatech) — growth potential at valuation discount",
         ))
 
     @Rule(
@@ -44,7 +44,7 @@ class TechnologyRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.WATCH,
-            reason=f"Technology: P/E {pe:.1f}x within peer range ({peer_avg:.1f}x–{peer_avg * mult:.1f}x) — monitor revenue growth & USD/MYR exposure",
+            reason=f"Technology: P/E {pe:.1f}x within peer range ({peer_avg:.1f}x–{peer_avg * mult:.1f}x; Inari, ViTrox, Frontken, MPI, Greatech) — monitor revenue growth & USD/MYR exposure",
         ))
 
     @Rule(
@@ -60,7 +60,7 @@ class TechnologyRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.AVOID,
-            reason=f"Technology: P/E {pe:.1f}x exceeds sector avg +{round((mult-1)*100):.0f}% ({peer_avg * mult:.1f}x) — valuation stretched relative to peers",
+            reason=f"Technology: P/E {pe:.1f}x exceeds sector avg +{round((mult-1)*100):.0f}% (threshold: {peer_avg * mult:.1f}x vs Inari, ViTrox, Frontken, MPI, Greatech) — valuation stretched relative to peers",
         ))
 
     @Rule(

@@ -27,7 +27,7 @@ class PlantationRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.BUY,
-            reason=f"Plantation: P/E {pe:.1f}x below sector median {peer_avg:.1f}x — attractive on commodity cyclical recovery",
+            reason=f"Plantation: P/E {pe:.1f}x below sector median {peer_avg:.1f}x (SD Guthrie, KLK, Genting Plantations, United Plantations) — attractive on commodity cyclical recovery",
         ))
 
     @Rule(
@@ -43,7 +43,7 @@ class PlantationRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.WATCH,
-            reason=f"Plantation: P/E {pe:.1f}x within sector range ({peer_avg:.1f}x–{peer_avg * mult:.1f}x) — monitor CPO price, yield & USD/MYR",
+            reason=f"Plantation: P/E {pe:.1f}x within sector range ({peer_avg:.1f}x–{peer_avg * mult:.1f}x; SD Guthrie, KLK, Genting Plantations, United Plantations) — monitor CPO price, yield & USD/MYR",
         ))
 
     @Rule(
@@ -59,7 +59,7 @@ class PlantationRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.AVOID,
-            reason=f"Plantation: P/E {pe:.1f}x exceeds sector median +{round((mult-1)*100):.0f}% ({peer_avg * mult:.1f}x) — valuation premium unjustified by commodity outlook",
+            reason=f"Plantation: P/E {pe:.1f}x exceeds sector median +{round((mult-1)*100):.0f}% (threshold: {peer_avg * mult:.1f}x vs SD Guthrie, KLK, Genting Plantations) — valuation premium unjustified by commodity outlook",
         ))
 
     @Rule(

@@ -26,7 +26,11 @@ class BankingRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.BUY,
-            reason=f"Banking: P/B {pb:.2f}x below peer avg {peer_avg:.2f}x",
+            reason=(
+                f"Banking: P/B {pb:.2f}x below peer avg {peer_avg:.2f}x (Maybank, CIMB, Public Bank, HLBank) "
+                f"— P/B (price-to-book) measures how much you pay per RM1 of the bank's net assets; "
+                f"below peer avg means undervalued relative to comparable banks"
+            ),
         ))
 
     @Rule(
@@ -42,7 +46,12 @@ class BankingRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.WATCH,
-            reason=f"Banking: P/B {pb:.2f}x within peer range ({peer_avg:.2f}x–{peer_avg * mult:.2f}x) — monitor interest margin and loan quality",
+            reason=(
+                f"Banking: P/B {pb:.2f}x within fair-value range vs peers "
+                f"({peer_avg:.2f}x–{peer_avg * mult:.2f}x; Maybank, CIMB, Public Bank, HLBank) "
+                f"— fairly priced but not cheap enough to enter; monitor OPR direction, "
+                f"net interest margin trend, and non-performing loan ratio before acting"
+            ),
         ))
 
     @Rule(
@@ -58,7 +67,12 @@ class BankingRules:
         self.declare(Recommendation(
             ticker=ticker,
             verdict=Verdict.AVOID,
-            reason=f"Banking: P/B {pb:.2f}x exceeds peer avg +{round((mult-1)*100):.0f}% ({peer_avg * mult:.2f}x)",
+            reason=(
+                f"Banking: P/B {pb:.2f}x exceeds peer avg by more than {round((mult-1)*100):.0f}% "
+                f"(threshold: {peer_avg * mult:.2f}x vs peers Maybank, CIMB, Public Bank, HLBank) "
+                f"— you are paying a significant premium over the bank's book value relative to comparable banks; "
+                f"downside risk is high if earnings or loan quality deteriorate"
+            ),
         ))
 
     @Rule(

@@ -117,14 +117,17 @@ class HealthcareRules:
         NOT(Recommendation(ticker=MATCH.ticker)),
         salience=19,
     )
-    def healthcare_avoid_overvalued(self, ticker, pe, peer_avg, mult):
+    def healthcare_watch_overvalued_good_occupancy(self, ticker, pe, peer_avg, mult):
+        # Fires when pe > peer_avg * mult but occupancy is not confirmed below threshold.
+        # Per proposal: AVOID requires BOTH overvalued P/E AND low occupancy (<65%).
+        # If occupancy is good (>=65%) or unavailable, verdict is WATCH — overvalued but operationally sound.
         self.declare(Recommendation(
             ticker=ticker,
-            verdict=Verdict.AVOID,
+            verdict=Verdict.WATCH,
             reason=(
                 f"Healthcare: P/E {pe:.1f}x exceeds peer avg +{round((mult-1)*100):.0f}% "
-                f"({peer_avg * mult:.1f}x) — premium over IHH, KPJ, Sunway Medical "
-                f"is not justified at current earnings"
+                f"({peer_avg * mult:.1f}x) but occupancy is acceptable — overvalued vs "
+                f"IHH, KPJ, Sunway Medical; hold position, do not enter at this price"
             ),
         ))
 

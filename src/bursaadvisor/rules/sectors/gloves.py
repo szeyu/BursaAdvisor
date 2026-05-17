@@ -75,7 +75,7 @@ class GlovesRules:
             verdict=Verdict.WATCH,
             reason=(
                 f"Gloves: P/E {pe:.1f}x within fair-value band "
-                f"({peer_avg:.1f}x–{peer_avg * mult:.1f}x) — "
+                f"({peer_avg:.1f}x–{peer_avg * mult:.1f}x; Top Glove, Hartalega, Kossan, Supermax) — "
                 f"monitor USD/MYR direction, nitrile cost trend, and ASP recovery signals"
             ),
         ))

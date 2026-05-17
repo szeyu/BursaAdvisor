@@ -51,7 +51,7 @@ class ConstructionRules:
                 ticker=ticker,
                 verdict=Verdict.BUY,
                 reason=(
-                    f"Construction: P/E {pe:.1f}x below peer avg {peer_avg:.1f}x; "
+                    f"Construction: P/E {pe:.1f}x below peer avg {peer_avg:.1f}x (Gamuda, IJM Corp, Sunway Construction, WCT Holdings); "
                     f"order book RM{order_book:.1f}b captured for revenue visibility"
                     f"{_opr_note(opr)}"
                 ),
@@ -90,7 +90,7 @@ class ConstructionRules:
                 verdict=Verdict.WATCH,
                 reason=(
                     f"Construction: P/E {pe:.1f}x within peer range "
-                    f"({peer_avg:.1f}x–{peer_avg * mult:.1f}x); order book RM{order_book:.1f}b "
+                    f"({peer_avg:.1f}x–{peer_avg * mult:.1f}x; Gamuda, IJM Corp, Sunway Construction, WCT Holdings); order book RM{order_book:.1f}b "
                     f"captured for revenue visibility — monitor OPR, material cost and labour cost"
                     f"{_opr_note(opr)}"
                 ),
@@ -112,25 +112,21 @@ class ConstructionRules:
             avoid_multiplier=MATCH.mult,
         ),
         MacroData(opr=MATCH.opr),
-        TEST(
-            lambda pe, order_book, peer_avg, mult: (
-                pe is not None
-                and order_book is not None
-                and pe > peer_avg * mult
-            )
-        ),
+        TEST(lambda pe, peer_avg, mult: pe is not None and pe > peer_avg * mult),
         NOT(Recommendation(ticker=MATCH.ticker)),
         salience=20,
     )
     def construction_avoid(self, ticker, pe, order_book, peer_avg, mult, opr):
+        # Overvalued P/E alone triggers AVOID — order book not required per proposal.
+        ob_note = f"; order book RM{order_book:.1f}b" if order_book is not None else "; order book unavailable"
         self.declare(
             Recommendation(
                 ticker=ticker,
                 verdict=Verdict.AVOID,
                 reason=(
-                    f"Construction: P/E {pe:.1f}x exceeds peer avg +"
-                    f"{round((mult - 1) * 100):.0f}% ({peer_avg * mult:.1f}x); "
-                    f"order book RM{order_book:.1f}b captured for revenue visibility"
+                    f"Construction: P/E {pe:.1f}x exceeds peer avg by more than {round((mult - 1) * 100):.0f}% "
+                    f"(threshold: {peer_avg * mult:.1f}x vs Gamuda, IJM Corp, Sunway Construction, WCT Holdings)"
+                    f"{ob_note}"
                     f"{_opr_note(opr)}"
                 ),
             )
@@ -141,21 +137,19 @@ class ConstructionRules:
         Stock(
             ticker=MATCH.ticker,
             sector=Sector.CONSTRUCTION,
-            pe_ratio=MATCH.pe,
-            order_book_rm=MATCH.order_book,
+            pe_ratio=None,
         ),
-        TEST(lambda pe, order_book: pe is None or order_book is None),
         PeerBenchmark(sector=Sector.CONSTRUCTION, metric="pe_ratio"),
         NOT(Recommendation(ticker=MATCH.ticker)),
         salience=19,
     )
-    def construction_missing_inputs(self, ticker):
+    def construction_no_pe_data(self, ticker):
         self.declare(
             Recommendation(
                 ticker=ticker,
                 verdict=Verdict.WATCH,
                 reason=(
-                    "Construction: P/E or order book unavailable — manual verification required "
+                    "Construction: P/E unavailable — manual verification required "
                     "before assessing valuation and revenue visibility"
                 ),
             )

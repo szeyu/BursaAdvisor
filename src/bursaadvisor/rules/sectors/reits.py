@@ -46,7 +46,7 @@ class ReitsRules:
                 verdict=Verdict.BUY,
                 reason=(
                     f"REITs: distribution yield {dy:.1f}% meets/exceeds peer benchmark "
-                    f"{peer_avg:.1f}%"
+                    f"{peer_avg:.1f}% (KLCC REIT, IGB REIT, Sunway REIT, Pavilion REIT, Axis REIT)"
                     f"{_opr_note(opr)}"
                 ),
             )
@@ -72,7 +72,7 @@ class ReitsRules:
                 verdict=Verdict.WATCH,
                 reason=(
                     f"REITs: distribution yield {dy:.1f}% is below peer benchmark "
-                    f"{peer_avg:.1f}% but still within peer range"
+                    f"{peer_avg:.1f}% (KLCC REIT, IGB REIT, Sunway REIT, Pavilion REIT, Axis REIT) but still within peer range"
                     f"{_opr_note(opr)}"
                 ),
             )
@@ -98,7 +98,7 @@ class ReitsRules:
                 verdict=Verdict.AVOID,
                 reason=(
                     f"REITs: distribution yield {dy:.1f}% is materially below peer benchmark "
-                    f"{peer_avg:.1f}%"
+                    f"{peer_avg:.1f}% (KLCC REIT, IGB REIT, Sunway REIT, Pavilion REIT, Axis REIT)"
                     f"{_opr_note(opr)}"
                 ),
             )

@@ -47,7 +47,10 @@ class PropertyRules:
                 ticker=ticker,
                 verdict=Verdict.BUY,
                 reason=(
-                    f"Property: P/E {pe:.1f}x below peer avg {peer_avg:.1f}x"
+                    f"Property: P/E {pe:.1f}x below peer avg {peer_avg:.1f}x "
+                    f"(Sime Darby Prop, IOI Properties, Eco World, SP Setia, Mah Sing) "
+                    f"— stock is undervalued relative to sector peers; low P/E for a developer "
+                    f"suggests the market is pricing in more earnings than the share price reflects"
                     f"{_opr_note(opr)}"
                 ),
             )
@@ -101,8 +104,10 @@ class PropertyRules:
                 ticker=ticker,
                 verdict=Verdict.AVOID,
                 reason=(
-                    f"Property: P/E {pe:.1f}x exceeds peer avg +"
-                    f"{round((mult - 1) * 100):.0f}% ({peer_avg * mult:.1f}x)"
+                    f"Property: P/E {pe:.1f}x exceeds peer avg by more than {round((mult - 1) * 100):.0f}% "
+                    f"(threshold: {peer_avg * mult:.1f}x vs Sime Darby Prop, IOI Prop, Eco World, SP Setia, Mah Sing) "
+                    f"— overvalued relative to sector peers; premium not justified given OPR sensitivity "
+                    f"on mortgage demand and developer borrowing costs"
                     f"{_opr_note(opr)}"
                 ),
             )
